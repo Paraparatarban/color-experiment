@@ -2,7 +2,7 @@
    配色（CSS変数で管理し、bodyのクラスで切り替える）
    ========================================= */
 
-/* 中間色：選択画面・終了画面用 */
+/* 中間色：番号入力・練習・終了画面用 */
 .theme-neutral {
   --bg: #F5F5F5;
   --text: #333333;
@@ -116,11 +116,10 @@ fieldset label {
 }
 
 /* =========================================
-   終了画面（実験者用の記録）
+   終了画面（参加者が回答用紙に書き写す記録）
    ========================================= */
 .record {
-  margin-top: 4rem;
-  font-size: 0.875rem;
+  margin: 1.5rem 0;
 }
 
 .note {
@@ -147,4 +146,64 @@ fieldset label {
   padding: 0.25rem 1rem;
   color: var(--text);
   background-color: transparent;
+}
+
+/* 補助のボタン（番号を入れ直す・最初からやり直す） */
+button.sub {
+  color: var(--text);
+  background-color: transparent;
+  margin-left: 0.5rem;
+}
+
+/* 参加者番号の入力欄 */
+#number-input {
+  font: inherit;
+  width: 6em;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  border: 2px solid var(--text);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* 次へ進む前のチェック */
+#next-box {
+  margin-top: 2rem;
+}
+label.check {
+  display: block;
+  cursor: pointer;
+}
+
+/* 実験者用の「最初からやり直す」：読む画面では出さない */
+.reset {
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+  font-size: 0.875rem;
+}
+.reset button {
+  padding: 0.25rem 1rem;
+  margin-top: 0;
+}
+body.theme-light .reset,
+body.theme-dark .reset {
+  display: none;
+}
+
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* 休憩画面 */
+.big {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.rule {
+  border: 2px solid var(--text);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
 }

@@ -9,36 +9,36 @@
 </head>
 <body class="theme-neutral">
 
-  <!-- ① 選択画面（実験者が操作する） -->
-  <section id="select" class="screen">
-    <h1>実験の準備</h1>
-    <p>参加者の割り当て表を見て、配色と文章を選んでください。</p>
-
-    <fieldset>
-      <legend>配色</legend>
-      <label><input type="radio" name="theme" value="light"> ライト</label>
-      <label><input type="radio" name="theme" value="dark"> ダーク</label>
-    </fieldset>
-
-    <fieldset>
-      <legend>文章</legend>
-      <label><input type="radio" name="text" value="practice"> 練習用の文章</label>
-      <label><input type="radio" name="text" value="A"> 文章A</label>
-      <label><input type="radio" name="text" value="B"> 文章B</label>
-    </fieldset>
-
-    <p id="select-error" class="error" hidden>配色と文章の両方を選んでください。</p>
-    <button type="button" id="go-button">この設定で準備する</button>
+  <!-- ① 参加者番号を入れる -->
+  <section id="number" class="screen">
+    <h1>文章を読む実験</h1>
+    <p>同意書の下の番号カードに書かれた、参加者番号を入れてください。</p>
+    <p>
+      <label for="number-input">参加者番号</label>
+      <input type="number" id="number-input" min="1" max="99" inputmode="numeric">
+    </p>
+    <p id="number-error" class="error" hidden>1〜99の番号を入れてください。</p>
+    <button type="button" id="number-button">次へ</button>
   </section>
 
-  <!-- ② 読み始める前の画面（ここから選んだ配色になる） -->
+  <!-- ② 番号の確認 -->
+  <section id="confirm" class="screen" hidden>
+    <h1>参加者番号　<span id="confirm-number"></span>番</h1>
+    <p>番号カードと同じ番号か確かめてください。</p>
+    <p>合っていれば「練習を始める」を押してください。違っていれば「番号を入れ直す」を押してください。</p>
+    <button type="button" id="confirm-button">練習を始める</button>
+    <button type="button" id="renumber-button" class="sub">番号を入れ直す</button>
+  </section>
+
+  <!-- ③ 読み始める前の画面（ここから読む文章の配色になる） -->
   <section id="start" class="screen" hidden>
+    <h1 id="start-title"></h1>
     <p>準備ができたら「読み始める」を押してください。</p>
     <p>最後まで、普段と同じ速さで読んでください。読み終わったら、いちばん下の「読み終わった」を押してください。</p>
     <button type="button" id="start-button">読み始める</button>
   </section>
 
-  <!-- ③ 文章を読む画面 -->
+  <!-- ④ 文章を読む画面 -->
   <section id="read" class="screen" hidden>
     <article id="article"></article>
     <div class="finish">
@@ -46,21 +46,47 @@
     </div>
   </section>
 
-  <!-- ④ 読み終わった後の画面 -->
+  <!-- ⑤ 読み終わった後の画面 -->
   <section id="end" class="screen" hidden>
-    <h1>お疲れさまでした</h1>
-    <p>実験者に声をかけてください。</p>
+    <h1 id="end-title"></h1>
 
-    <div class="record">
-      <p class="note">実験者用（アンケート用紙に書き写す）</p>
+    <div id="end-record" class="record">
+      <p class="note">この3つを回答用紙の「記入欄」に書き写してください。</p>
       <table>
         <tr><th>配色</th><td id="result-theme"></td></tr>
         <tr><th>文章</th><td id="result-text"></td></tr>
         <tr><th>読了時間</th><td id="result-time"></td></tr>
       </table>
-      <button type="button" id="back-button">選択画面に戻る</button>
+    </div>
+
+    <div id="end-guide"></div>
+
+    <div id="next-box">
+      <label class="check"><input type="checkbox" id="next-check"> <span id="next-check-label"></span></label>
+      <button type="button" id="next-button" disabled></button>
     </div>
   </section>
+
+  <!-- ⑥ 休憩（1つ目と2つ目の間） -->
+  <section id="rest" class="screen" hidden>
+    <h1>休憩</h1>
+    <div id="rest-wait">
+      <p class="big">休憩は <span id="rest-end"></span> までです。</p>
+      <p>画面は見ないで目を休めてください。目を閉じていてもかまいません。スマホも見ないでください。</p>
+      <p>時間になったら回答用紙の4ページ目に答えてください。</p>
+    </div>
+    <div id="rest-done" hidden>
+      <p class="big">10分たちました。</p>
+      <p>回答用紙の4ページ目（休憩の後の目の状態）に答えて、合計点を出してください。</p>
+      <p class="rule">4ページ目の合計点が<strong>「2ページ目の合計点＋2点」以下</strong>なら、2つ目に進んでかまいません。<br>
+        それより大きいときは、もう少し休んでから4ページ目の「2回目」の欄に答え直してください。<br>
+        <strong id="rest-max"></strong> になったら、点数に関係なく進んでかまいません。</p>
+      <label class="check"><input type="checkbox" id="rest-check"> 4ページ目のチェックで「進んでよい」になった</label>
+      <button type="button" id="rest-button" disabled>2つ目の文章へ進む</button>
+    </div>
+  </section>
+
+  <p class="reset"><button type="button" id="reset-button" class="sub">最初からやり直す（実験者用）</button></p>
 
   <script src="texts.js"></script>
   <script src="script.js"></script>
