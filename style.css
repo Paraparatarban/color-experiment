@@ -187,10 +187,6 @@ label.check {
   padding: 0.25rem 1rem;
   margin-top: 0;
 }
-body.theme-light .reset,
-body.theme-dark .reset {
-  display: none;
-}
 
 button:disabled {
   opacity: 0.35;

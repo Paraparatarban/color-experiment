@@ -81,6 +81,8 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(function (screen) {
     screen.hidden = (screen.id !== id);
   });
+  // 実験者用の「最初からやり直す」は、文章を読む画面では出さない
+  document.querySelector('.reset').hidden = (id === 'read');
   window.scrollTo(0, 0);
 }
 
@@ -135,8 +137,11 @@ document.getElementById('number-button').addEventListener('click', function () {
 });
 
 // ② 番号の確認
+//（実験者用）タブを閉じてしまった人は、URLの最後に #1 か #2 を付けて開くと、
+//  番号を入れた後に1つ目か2つ目の文章から始められる
 document.getElementById('confirm-button').addEventListener('click', function () {
-  step = 0;
+  step = ({ '#1': 1, '#2': 2 })[location.hash] || 0;
+  restStart = 0;
   save();
   showStart();
 });
