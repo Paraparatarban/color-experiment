@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文章を読む実験</title>
+  <link rel="stylesheet" href="fonts/noto-sans-jp-400.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-neutral">
+
+  <!-- ① 選択画面（実験者が操作する） -->
+  <section id="select" class="screen">
+    <h1>実験の準備</h1>
+    <p>参加者の割り当て表を見て、配色と文章を選んでください。</p>
+
+    <fieldset>
+      <legend>配色</legend>
+      <label><input type="radio" name="theme" value="light"> ライト</label>
+      <label><input type="radio" name="theme" value="dark"> ダーク</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>文章</legend>
+      <label><input type="radio" name="text" value="practice"> 練習用の文章</label>
+      <label><input type="radio" name="text" value="A"> 文章A</label>
+      <label><input type="radio" name="text" value="B"> 文章B</label>
+    </fieldset>
+
+    <p id="select-error" class="error" hidden>配色と文章の両方を選んでください。</p>
+    <button type="button" id="go-button">この設定で準備する</button>
+  </section>
+
+  <!-- ② 読み始める前の画面（ここから選んだ配色になる） -->
+  <section id="start" class="screen" hidden>
+    <p>準備ができたら「読み始める」を押してください。</p>
+    <p>最後まで、普段と同じ速さで読んでください。読み終わったら、いちばん下の「読み終わった」を押してください。</p>
+    <button type="button" id="start-button">読み始める</button>
+  </section>
+
+  <!-- ③ 文章を読む画面 -->
+  <section id="read" class="screen" hidden>
+    <article id="article"></article>
+    <div class="finish">
+      <button type="button" id="finish-button">読み終わった</button>
+    </div>
+  </section>
+
+  <!-- ④ 読み終わった後の画面 -->
+  <section id="end" class="screen" hidden>
+    <h1>お疲れさまでした</h1>
+    <p>実験者に声をかけてください。</p>
+
+    <div class="record">
+      <p class="note">実験者用（アンケート用紙に書き写す）</p>
+      <table>
+        <tr><th>配色</th><td id="result-theme"></td></tr>
+        <tr><th>文章</th><td id="result-text"></td></tr>
+        <tr><th>読了時間</th><td id="result-time"></td></tr>
+      </table>
+      <button type="button" id="back-button">選択画面に戻る</button>
+    </div>
+  </section>
+
+  <script src="texts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

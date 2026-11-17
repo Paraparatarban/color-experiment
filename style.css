@@ -1,0 +1,150 @@
+/* =========================================
+   配色（CSS変数で管理し、bodyのクラスで切り替える）
+   ========================================= */
+
+/* 中間色：選択画面・終了画面用 */
+.theme-neutral {
+  --bg: #F5F5F5;
+  --text: #333333;
+}
+
+/* ライト（Material Design、文字は黒87%）コントラスト比 16.1:1 */
+.theme-light {
+  --bg: #FFFFFF;
+  --text: #212121;
+}
+
+/* ダーク（Material Design、背景#121212、文字は白87%）コントラスト比 14.19:1 */
+.theme-dark {
+  --bg: #121212;
+  --text: #E0E0E0;
+}
+
+/* 実験2の新しい配色は、決まったらここに追加する */
+
+/* =========================================
+   文字の設定（デジタル庁デザインシステムに合わせる）
+   ========================================= */
+html {
+  font-size: 100%; /* ブラウザの標準（16px）を基準にする */
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;        /* 16px */
+  line-height: 1.7;       /* 行間170% */
+  letter-spacing: 0.02em; /* 字間2% */
+}
+
+/* 1行の長さ：全配色で同じ最大幅（40文字分、WCAG 1.4.8） */
+.screen {
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+/* 文章のタイトル */
+#article h2 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0 0 2rem;
+}
+
+/* 文章中の見出し */
+#article h3 {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin: 2.5rem 0 1rem;
+}
+
+#article p {
+  margin: 0 0 1em;
+}
+
+/* 「読み終わった」ボタンの場所 */
+.finish {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+/* =========================================
+   ボタン・選択欄
+   色は配色に合わせて変わるように、文字色と背景色を使う
+   ========================================= */
+button {
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0.75rem 2rem;
+  margin-top: 1.5rem;
+  color: var(--bg);
+  background-color: var(--text);
+  border: 2px solid var(--text);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+fieldset {
+  margin: 1.5rem 0 0;
+  border: 1px solid var(--text);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem 1rem;
+}
+
+fieldset label {
+  display: block;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.error {
+  color: #B3261E;
+  font-weight: bold;
+}
+
+/* =========================================
+   終了画面（実験者用の記録）
+   ========================================= */
+.record {
+  margin-top: 4rem;
+  font-size: 0.875rem;
+}
+
+.note {
+  margin-bottom: 0.5rem;
+}
+
+.record table {
+  border-collapse: collapse;
+}
+
+.record th,
+.record td {
+  border: 1px solid var(--text);
+  padding: 0.25rem 1rem;
+  text-align: left;
+}
+
+#result-time {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.record button {
+  padding: 0.25rem 1rem;
+  color: var(--text);
+  background-color: transparent;
+}
