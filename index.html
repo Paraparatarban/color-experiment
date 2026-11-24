@@ -12,7 +12,7 @@
   <!-- ① 参加者番号を入れる -->
   <section id="number" class="screen">
     <h1>文章を読む実験</h1>
-    <p>同意書の下の番号カードに書かれた、参加者番号を入れてください。</p>
+    <p>同意書（いちばん上の紙）に書かれた参加者番号を入れてください。</p>
     <p>
       <label for="number-input">参加者番号</label>
       <input type="number" id="number-input" min="1" max="99" inputmode="numeric">
@@ -24,7 +24,7 @@
   <!-- ② 番号の確認 -->
   <section id="confirm" class="screen" hidden>
     <h1>参加者番号　<span id="confirm-number"></span>番</h1>
-    <p>番号カードと同じ番号か確かめてください。</p>
+    <p>同意書に書かれた番号と同じか確かめてください。</p>
     <p>合っていれば「練習を始める」を押してください。違っていれば「番号を入れ直す」を押してください。</p>
     <button type="button" id="confirm-button">練習を始める</button>
     <button type="button" id="renumber-button" class="sub">番号を入れ直す</button>
