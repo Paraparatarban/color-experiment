@@ -10,8 +10,8 @@
 // Googleフォームの設定（フォーム作成.gs を実行したときのログの値を入れる）
 //   url が空のときは、紙の回答用紙を使う形で動く
 const FORM = {
-  url: '',
-  entry: { number: '', timing: '', theme: '', time: '', text: '' },
+  url: 'https://docs.google.com/forms/d/e/1FAIpQLSfBSVFevY2iczQ6LYTnMHQ1axx-tfsS2YNO6OeGpixhP6vCtw/viewform',
+  entry: { number: 'entry.1287334433', timing: 'entry.1490269177', theme: 'entry.1304142283', time: 'entry.441100712', text: 'entry.689470594' },
 };
 const USE_FORM = FORM.url !== '';
 const TIMINGS = ['読む前', '1つ目を読んだ後', '2つ目を読んだ後'];
