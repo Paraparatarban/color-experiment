@@ -3,8 +3,33 @@
 //   ① 参加者番号を入れると、配色と文章の順番が自動で決まる
 //   ② 練習用の文章 → 1つ目 → 休憩 → 2つ目 の順に進む
 //   ③ 「読み始める」から「読み終わった」までの時間を測って表示する
-//      （参加者が回答用紙に書き写す。どこにも送信・保存しない）
+//      （どこにも送信・保存しない。紙の回答用紙なら参加者が書き写し、
+//        Googleフォームを使うときは、フォームを開くときに自動で入る）
 // =============================================
+
+// Googleフォームの設定（フォーム作成.gs を実行したときのログの値を入れる）
+//   url が空のときは、紙の回答用紙を使う形で動く
+const FORM = {
+  url: '',
+  entry: { number: '', timing: '', theme: '', time: '', text: '' },
+};
+const USE_FORM = FORM.url !== '';
+const TIMINGS = ['読む前', '1つ目を読んだ後', '2つ目を読んだ後'];
+const TIMING_REST = '休憩の後';
+
+// フォームのURLに、番号などを自動で入れたものを作る
+function formUrl(timing, c, seconds) {
+  const q = ['usp=pp_url'];
+  const add = function (key, value) { if (FORM.entry[key]) q.push(FORM.entry[key] + '=' + encodeURIComponent(value)); };
+  add('number', participant);
+  add('timing', timing);
+  if (c) {
+    add('theme', THEME_NAMES[c.theme]);
+    add('text', TEXT_NAMES[c.text]);
+    add('time', seconds.toFixed(1));
+  }
+  return FORM.url + '?' + q.join('&');
+}
 
 // 画面に出す名前
 const THEME_NAMES = { light: 'ライト', dark: 'ダーク', neutral: '練習用' };
@@ -45,6 +70,25 @@ const STEPS = [
             '答え終わったら、回答用紙を裏返して手を挙げてください。お疲れさまでした。'],
     check: '',
     next: '',
+  },
+];
+
+// Googleフォームを使うときの案内
+const STEPS_FORM = [
+  {
+    guide: ['操作はこれだけです。',
+            '下の「フォームを開く」を押して、基本情報と読む前の目の状態に答えてください。送信したらそのタブを閉じて（Ctrl＋W）、この画面に戻ってください。'],
+    check: 'フォームを送信した',
+  },
+  {
+    guide: ['下の「フォームを開く」を押して、目の状態・配色の見やすさ・理解度問題に答えてください。配色・文章・読了時間は自動で入っています。',
+            '送信したらそのタブを閉じて、この画面に戻ってください。次は10分の休憩です。'],
+    check: 'フォームを送信した',
+  },
+  {
+    guide: ['下の「フォームを開く」を押して、目の状態・配色の見やすさ・理解度問題に答えてください。',
+            '送信したらタブを閉じて、手を挙げてください。お疲れさまでした。'],
+    check: '',
   },
 ];
 
@@ -172,7 +216,13 @@ document.getElementById('finish-button').addEventListener('click', function () {
 
   const guide = document.getElementById('end-guide');
   guide.innerHTML = '';
-  s.guide.forEach(function (line) {
+  const lines = USE_FORM ? STEPS_FORM[step].guide : s.guide;
+  document.getElementById('form-box').hidden = !USE_FORM;
+  if (USE_FORM) {
+    document.getElementById('form-link').href = formUrl(TIMINGS[step], step > 0 ? c : null, seconds);
+    document.querySelector('#end-record .note').textContent = 'この3つはフォームに自動で入ります。念のため確認してください。';
+  }
+  lines.forEach(function (line) {
     const p = document.createElement('p');
     p.textContent = line;
     guide.appendChild(p);
@@ -181,7 +231,7 @@ document.getElementById('finish-button').addEventListener('click', function () {
   const box = document.getElementById('next-box');
   box.hidden = (s.next === '');
   document.getElementById('next-check').checked = false;
-  document.getElementById('next-check-label').textContent = s.check;
+  document.getElementById('next-check-label').textContent = USE_FORM ? STEPS_FORM[step].check : s.check;
   document.getElementById('next-button').textContent = s.next;
   document.getElementById('next-button').disabled = true;
 
@@ -216,6 +266,14 @@ function showRest() {
   document.body.className = 'theme-neutral';
   document.getElementById('rest-end').textContent = clock(restStart + REST_MIN * 60000);
   document.getElementById('rest-max').textContent = clock(restStart + REST_MAX * 60000);
+  document.getElementById('rest-max-form').textContent = clock(restStart + REST_MAX * 60000);
+  document.getElementById('rest-paper').hidden = USE_FORM;
+  document.getElementById('rest-form').hidden = !USE_FORM;
+  if (USE_FORM) {
+    document.getElementById('rest-wait-note').textContent = '時間になったら、この画面に出るボタンからフォームに答えてください。';
+    document.getElementById('rest-form-link').href = formUrl(TIMING_REST, null, 0);
+    document.getElementById('rest-check-label').textContent = 'フォームで「戻った」と答えた（または20分たった）';
+  }
   document.getElementById('rest-check').checked = false;
   document.getElementById('rest-button').disabled = true;
   updateRest();

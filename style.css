@@ -92,6 +92,18 @@ button {
   cursor: pointer;
 }
 
+/* フォームを開くリンク（ボタンと同じ見た目） */
+a.button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  margin-top: 0.5rem;
+  color: var(--bg);
+  background-color: var(--text);
+  border: 2px solid var(--text);
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
 button:focus-visible {
   outline: 3px solid var(--text);
   outline-offset: 3px;

@@ -61,6 +61,8 @@
 
     <div id="end-guide"></div>
 
+    <p id="form-box" hidden><a id="form-link" class="button" target="_blank" rel="noopener">フォームを開く</a></p>
+
     <div id="next-box">
       <label class="check"><input type="checkbox" id="next-check"> <span id="next-check-label"></span></label>
       <button type="button" id="next-button" disabled></button>
@@ -73,15 +75,24 @@
     <div id="rest-wait">
       <p class="big">休憩は <span id="rest-end"></span> までです。</p>
       <p>画面は見ないで目を休めてください。目を閉じていてもかまいません。スマホも見ないでください。</p>
-      <p>時間になったら回答用紙の4ページ目に答えてください。</p>
+      <p id="rest-wait-note">時間になったら回答用紙の4ページ目に答えてください。</p>
     </div>
     <div id="rest-done" hidden>
       <p class="big">10分たちました。</p>
-      <p>回答用紙の4ページ目（休憩の後の目の状態）に答えて、合計点を出してください。</p>
-      <p class="rule">4ページ目の合計点が<strong>「2ページ目の合計点＋2点」以下</strong>なら、2つ目に進んでかまいません。<br>
-        それより大きいときは、もう少し休んでから4ページ目の「2回目」の欄に答え直してください。<br>
-        <strong id="rest-max"></strong> になったら、点数に関係なく進んでかまいません。</p>
-      <label class="check"><input type="checkbox" id="rest-check"> 4ページ目のチェックで「進んでよい」になった</label>
+      <div id="rest-paper">
+        <p>回答用紙の4ページ目（休憩の後の目の状態）に答えて、合計点を出してください。</p>
+        <p class="rule">4ページ目の合計点が<strong>「2ページ目の合計点＋2点」以下</strong>なら、2つ目に進んでかまいません。<br>
+          それより大きいときは、もう少し休んでから4ページ目の「2回目」の欄に答え直してください。<br>
+          <strong id="rest-max"></strong> になったら、点数に関係なく進んでかまいません。</p>
+      </div>
+      <div id="rest-form" hidden>
+        <p>下の「フォームを開く」を押して、休憩の後の目の状態に答えてください。</p>
+        <p class="rule">フォームの最後で<strong>「戻った」</strong>と答えたら、2つ目に進んでかまいません。<br>
+          <strong>「まだ疲れが残っている」</strong>と答えたら、数分休んでからもう一度フォームに答えてください。<br>
+          <strong id="rest-max-form"></strong> になったら、答え直さずに進んでかまいません。</p>
+        <p><a id="rest-form-link" class="button" target="_blank" rel="noopener">フォームを開く</a></p>
+      </div>
+      <label class="check"><input type="checkbox" id="rest-check"> <span id="rest-check-label">4ページ目のチェックで「進んでよい」になった</span></label>
       <button type="button" id="rest-button" disabled>2つ目の文章へ進む</button>
     </div>
   </section>
